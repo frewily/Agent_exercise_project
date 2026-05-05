@@ -1,9 +1,9 @@
-collection_name: agent
-persist_directory: chroma_db
-k: 3
-data_path: data
-md5_hex_store: md5.text
-allow_knowledge_file_type: [pdf, docx, txt]
+collection_name: agent。 # 向量存储的数据库名称
+persist_directory: chroma_d  # 向量存储的目录
+k: 3  # 搜索的返回数量
+data_path: data  # 数据集目录
+md5_hex_store: md5.text  # md5存储文件
+allow_knowledge_file_type: [pdf, txt]  # 允许的文件类型
 
 chunk_size: 200
 chunk_overlap: 20
