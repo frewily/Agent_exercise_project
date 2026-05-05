@@ -17,7 +17,7 @@ def load_system_prompts():
 
 def load_rag_prompts():
     try:
-        rag_prompt_path = get_abs_path(prompts_conf["rag_summarize_prompt_path"])
+        rag_prompt_path = get_abs_path(prompts_conf["rag_prompt_path"])
     except KeyError as e:
         logger.error(f"{e}")
         raise e

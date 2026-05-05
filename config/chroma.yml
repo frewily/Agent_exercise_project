@@ -1,4 +1,4 @@
-collection_name: agent。 # 向量存储的数据库名称
+collection_name: agent  # 向量存储的数据库名称
 persist_directory: chroma_d  # 向量存储的目录
 k: 3  # 搜索的返回数量
 data_path: data  # 数据集目录
