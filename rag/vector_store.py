@@ -17,7 +17,7 @@ import os
 class VectorStoreService:
     def __init__(self):
         self.vector_store = Chroma(
-            persist_directory=chroma_conf["persist_directory"],
+            persist_directory=get_abs_path(chroma_conf["persist_directory"]),
             embedding_function=embed_model,
             collection_name=chroma_conf["collection_name"]
         )
@@ -30,7 +30,21 @@ class VectorStoreService:
 
     # 获取向量检索器
     def get_retriever(self):
-        return self.vector_store.as_retriever(search_kwargs={"k": chroma_conf["k"]})
+        # 获取集合中的文档总数用于调试
+        try:
+            collection = self.vector_store._collection
+            doc_count = collection.count()
+            logger.info(f"[VectorStore] 向量库中共有 {doc_count} 个文档片段")
+        except Exception as e:
+            logger.warning(f"[VectorStore] 无法获取文档数量: {e}")
+        
+        return self.vector_store.as_retriever(
+            search_type="similarity",  # 明确指定搜索类型
+            search_kwargs={
+                "k": chroma_conf["k"],
+                # "score_threshold": 0.5  # 可选：设置相似度阈值
+            }
+        )
 
     def load_document(self):
         """

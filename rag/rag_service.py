@@ -8,6 +8,7 @@ from rag.vector_store import VectorStoreService
 from utils.prompt_loader import load_rag_prompts
 from langchain_core.prompts import PromptTemplate
 from model.factory import chat_model
+from utils.logger_handler import logger
 
 def print_prompt(prompt):
     print("=" * 20)
@@ -38,12 +39,15 @@ class RagSummarizeService(object):
 
         # 获取的参考资料
         context_docs = self.retriever_docs(query)
+        logger.info(f"[RAG] 检索到 {len(context_docs)} 条相关文档")
+        
         # 拼接参考资料
         context = ""
         counter = 0
         for doc in context_docs:
             counter += 1
             context += f"【参考资料{counter}】：参考资料：{doc.page_content} | 参考元数据：{doc.metadata}\n"
+            logger.debug(f"[RAG] 文档{counter}: {doc.page_content[:100]}...")
 
         # 获取模型回复
         return self.chain.invoke(
