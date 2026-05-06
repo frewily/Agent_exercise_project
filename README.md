@@ -1,6 +1,7 @@
 # 智能扫地机器人客服系统
 
 基于 LangChain + LangGraph + Streamlit 构建的 ReAct 智能客服，支持 RAG 知识检索、外部数据查询和动态报告生成。
+（建议搭配Agent_RAG_学习指南.md阅读源码）
 
 ---
 
