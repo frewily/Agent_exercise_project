@@ -10,7 +10,6 @@ from utils.logger_handler import logger
 rag = RagSummarizeService()
 
 user_ids = [1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010]
-month_arr = ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12"]
 
 external_data = {}
 
@@ -32,7 +31,7 @@ def get_user_id() -> int:
 
 @tool(description="获取指定月份的日历，以纯字符串的形式返回")
 def get_calendar(month: str) -> str:
-    return random.choice(month_arr)
+    return month
 
 @tool(description="获取系统当前月份，格式为YYYY-MM，无入参")
 def get_current_month() -> str:
@@ -73,7 +72,8 @@ def fetch_external_data(user_id: int, month: str) -> str:
     generate_external_data()
 
     try:
-        return external_data[str(user_id)][month]
+        record = external_data[str(user_id)][month]
+        return str(record)
     except KeyError:
         logger.info(f"未找到用户{user_id}在{month}的记录")
         return ""
